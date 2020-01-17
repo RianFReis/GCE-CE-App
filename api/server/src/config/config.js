@@ -15,10 +15,10 @@ module.exports = {
   },
 
   test: {
-    database: "book_test",
-    username: "steven",
-    password: null,
-    host: "127.0.0.1",
+    database: "qdivjqjv",
+    username: "qdivjqjv",
+    password: "9vJYNWTcrB-wRgQv1-92qXI_CqFSu3_G",
+    host: "rajje.db.elephantsql.com",
     dialect: "postgres"
   },
 
