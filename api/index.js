@@ -19,7 +19,7 @@ app.use("/api/v1/user", userRoutes);
 // when a random route is inputed
 app.get("*", (req, res) =>
   res.status(200).send({
-    message: "Welcome to this API."
+    message: "Well, there is nothing here"
   })
 );
 
