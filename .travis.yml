@@ -4,8 +4,6 @@ node_js:
 cache:
   directories:
     - "node_modules"
-install:
-  - npm install
 services:
   - docker # (2)
   - postgresql
@@ -16,6 +14,7 @@ jobs:
         global:
           - NODE_ENV=test
       before_script:
+        - npm install
         - npm run build
         - npm install -g sequelize-cli
         - sequelize db:migrate
