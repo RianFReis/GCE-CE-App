@@ -7,17 +7,17 @@ module.exports = {
   // },
 
   development: {
-    database: "qdivjqjv",
-    username: "qdivjqjv",
-    password: "9vJYNWTcrB-wRgQv1-92qXI_CqFSu3_G",
+    database: "zvzunwcc",
+    username: "zvzunwcc",
+    password: "PIemvPGOIYwyEP1pI8liGz4p5DQ-wAhG",
     host: "rajje.db.elephantsql.com",
     dialect: "postgres"
   },
 
   test: {
-    database: "qdivjqjv",
-    username: "qdivjqjv",
-    password: "9vJYNWTcrB-wRgQv1-92qXI_CqFSu3_G",
+    database: "wxighsqe",
+    username: "wxighsqe",
+    password: "U6bC1y5SEKKNBowArC4-XTJDgyHp1Oem",
     host: "rajje.db.elephantsql.com",
     dialect: "postgres"
   },
