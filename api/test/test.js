@@ -21,6 +21,8 @@ describe("Testing auth system", () => {
       .post("/api/v1/user")
       .set("Accept", "application/json")
       .send(user);
+
+    done();
   });
 
   it("It should login successfully and receive a JWToken", done => {
