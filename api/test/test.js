@@ -6,16 +6,17 @@ import app from "../index";
 chai.use(chatHttp);
 const { expect } = chai;
 var AUTH_TOKEN = null;
+var isLogged = false;
 
 describe("Testing auth system", () => {
-  it("It should create a user", async done => {
+  before(done => {
     const user = {
       login: "test",
       password: "testuser",
       name: "Test User",
       role: "10"
     };
-    await chai
+    chai
       .request(app)
       .post("/api/v1/user")
       .set("Accept", "application/json")
@@ -26,12 +27,12 @@ describe("Testing auth system", () => {
       });
   });
 
-  it("It should login successfully and receive a JWToken", async done => {
+  it("It should login successfully and receive a JWToken", done => {
     const user = {
       login: "test",
       password: "testuser"
     };
-    await chai
+    chai
       .request(app)
       .post("/api/v1/user/auth")
       .set("Accept", "application/json")
@@ -45,8 +46,8 @@ describe("Testing auth system", () => {
 });
 
 describe("Testing the get all GalleryPics endpoind:", () => {
-  it("It should create a gallery pic", async done => {
-    await chai
+  it("It should create a gallery pic", done => {
+    chai
       .request(app)
       .post("/api/v1/gallery")
       .set("Accept", "application/json")
@@ -57,8 +58,8 @@ describe("Testing the get all GalleryPics endpoind:", () => {
       });
   });
 
-  it("It should return all GalleryPics", async done => {
-    await chai
+  it("It should return all GalleryPics", done => {
+    chai
       .request(app)
       .get("/api/v1/gallery")
       .set("Accept", "application/json")
