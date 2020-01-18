@@ -17,12 +17,11 @@ describe("Testing auth system", () => {
     };
     chai
       .request(app)
-      .post("/ap/v1/user")
+      .post("/api/v1/user")
       .set("Accept", "application/json")
       .send(user)
       .end((err, res) => {
         expect(res.status).to.equal(201);
-        console.log(err);
         done();
       });
   });
@@ -38,7 +37,6 @@ describe("Testing auth system", () => {
       .set("Accept", "application/json")
       .send(user)
       .end((err, res) => {
-        console.log(err);
         expect(res.status).to.equal(200);
         AUTH_TOKEN = res.body.data;
         done();
@@ -55,7 +53,6 @@ describe("Testing the get all GalleryPics endpoind:", () => {
       .set("Authorization", AUTH_TOKEN)
       .end((err, res) => {
         expect(res.status).to.equal(200);
-        console.log(err);
         done();
       });
   });
@@ -67,7 +64,6 @@ describe("Testing the get all GalleryPics endpoind:", () => {
       .set("Accept", "application/json")
       .set("Authorization", AUTH_TOKEN)
       .end((err, res) => {
-        console.log(err);
         const { title, description, imageUrl } = res.body.data;
         expect(res.status).to.equal(200);
         expect(title).to.be.a("string").that.is.not.empty;
