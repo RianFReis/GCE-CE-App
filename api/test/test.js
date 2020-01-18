@@ -9,7 +9,7 @@ var AUTH_TOKEN = null;
 var isLogged = false;
 
 describe("Testing auth system", () => {
-  it("It should create a user", done => {
+  before(done => {
     const user = {
       login: "test",
       password: "testuser",
@@ -23,6 +23,7 @@ describe("Testing auth system", () => {
       .send(user)
       .end((err, res) => {
         expect(res.status).to.equal(201);
+        done();
       });
   });
 
