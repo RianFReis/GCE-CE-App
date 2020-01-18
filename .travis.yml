@@ -28,8 +28,7 @@ jobs:
         - docker build -t rianreis/gce-app .
         - docker push rianreis/gce-app
     - stage: deploy
-      script:
-        - npm install
+      script: skip
       deploy: # (6)
         provider: elasticbeanstalk
         access_key_id: $AWS_ACCESS_KEY_ID
