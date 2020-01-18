@@ -8,14 +8,14 @@ const { expect } = chai;
 var AUTH_TOKEN = null;
 
 describe("Testing auth system", () => {
-  it("It should create a user", done => {
+  it("It should create a user", async done => {
     const user = {
       login: "test",
       password: "testuser",
       name: "Test User",
       role: "10"
     };
-    chai
+    await chai
       .request(app)
       .post("/api/v1/user")
       .set("Accept", "application/json")
@@ -26,12 +26,12 @@ describe("Testing auth system", () => {
       });
   });
 
-  it("It should login successfully and receive a JWToken", done => {
+  it("It should login successfully and receive a JWToken", async done => {
     const user = {
       login: "test",
       password: "testuser"
     };
-    chai
+    await chai
       .request(app)
       .post("/api/v1/user/auth")
       .set("Accept", "application/json")
@@ -45,8 +45,8 @@ describe("Testing auth system", () => {
 });
 
 describe("Testing the get all GalleryPics endpoind:", () => {
-  it("It should create a gallery pic", done => {
-    chai
+  it("It should create a gallery pic", async done => {
+    await chai
       .request(app)
       .post("/api/v1/gallery")
       .set("Accept", "application/json")
@@ -57,8 +57,8 @@ describe("Testing the get all GalleryPics endpoind:", () => {
       });
   });
 
-  it("It should return all GalleryPics", done => {
-    chai
+  it("It should return all GalleryPics", async done => {
+    await chai
       .request(app)
       .get("/api/v1/gallery")
       .set("Accept", "application/json")
