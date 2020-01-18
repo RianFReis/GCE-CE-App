@@ -9,22 +9,18 @@ var AUTH_TOKEN = null;
 var isLogged = false;
 
 describe("Testing auth system", () => {
-  before(done => {
+  before(async done => {
     const user = {
       login: "test",
       password: "testuser",
       name: "Test User",
       role: "10"
     };
-    chai
+    await chai
       .request(app)
       .post("/api/v1/user")
       .set("Accept", "application/json")
-      .send(user)
-      .end((err, res) => {
-        expect(res.status).to.equal(201);
-        done();
-      });
+      .send(user);
   });
 
   it("It should login successfully and receive a JWToken", done => {
