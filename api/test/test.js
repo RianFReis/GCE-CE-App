@@ -17,7 +17,7 @@ describe("Testing auth system", () => {
     };
     chai
       .request(app)
-      .post("/ap/v1/user/")
+      .post("/ap/v1/user")
       .set("Accept", "application/json")
       .send(user)
       .end((err, res) => {
@@ -48,7 +48,7 @@ describe("Testing the get all GalleryPics endpoind:", () => {
   it("It should create a gallery pic", done => {
     chai
       .request(app)
-      .post("/api/v1/gallery/")
+      .post("/api/v1/gallery")
       .set("Accept", "application/json")
       .set("Authorization", AUTH_TOKEN)
       .end((err, res) => {
@@ -60,7 +60,7 @@ describe("Testing the get all GalleryPics endpoind:", () => {
   it("It should return all GalleryPics", done => {
     chai
       .request(app)
-      .get("/api/v1/gallery/")
+      .get("/api/v1/gallery")
       .set("Accept", "application/json")
       .set("Authorization", AUTH_TOKEN)
       .end((err, res) => {
