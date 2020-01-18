@@ -1,6 +1,6 @@
 language: node_js # (1)
 node_js:
-  - 'node'
+  - "node"
 cache:
   directories:
     - "node_modules"
@@ -23,54 +23,19 @@ jobs:
       after_success:
         - npm run coverage
     - stage: docker-deploy-image # (5)
-      script: 
-        - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin 
+      script:
+        - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
         - docker build -t rianreis/gce-app .
         - docker push rianreis/gce-app
     - stage: deploy
-      script: 
-        - npm install 
+      script:
+        - npm install
       deploy: # (6)
         provider: elasticbeanstalk
         access_key_id: $AWS_ACCESS_KEY_ID
         secret_access_key: $AWS_SECRET_ACCESS_KEY
-        region: 'us-east-1'
-        app: 'gce-test'
-        env: 'GceTest-env'
-        bucket_name: 'elasticbeanstalk-us-east-1-526564402012'
-        bucket_path: 'gce-test'
-
-
-
-
-
-
-
-
-
-
-
-
-language: node_js
-node_js:
-  - "stable"
-cache:
-  directories:
-    - "node_modules"
-install:
-  - npm install
-services:
-  - postgresql
-
-env:
-  global:
-    - NODE_ENV=test
-
-before_script:
-  - npm run build
-  - npm install -g sequelize-cli
-  - sequelize db:migrate
-script:
-  - npm test
-after_success:
-  - npm run coverage
+        region: "us-east-1"
+        app: "gce-test"
+        env: "GceTest-env"
+        bucket_name: "elasticbeanstalk-us-east-1-526564402012"
+        bucket_path: "gce-test"

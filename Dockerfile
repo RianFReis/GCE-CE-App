@@ -2,7 +2,7 @@
 FROM node:12.7.0-alpine
 
 # Set the working directory to /app
-WORKDIR '/api'
+WORKDIR '/app'
 
 # Copy package.json to the working directory
 COPY package.json .
