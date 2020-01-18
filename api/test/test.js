@@ -9,36 +9,36 @@ var AUTH_TOKEN = null;
 var isLogged = false;
 
 describe("Testing auth system", () => {
-  before(async done => {
+  it("It should create a user", done => {
     const user = {
       login: "test",
       password: "testuser",
       name: "Test User",
       role: "10"
     };
-    await chai
+    chai
       .request(app)
       .post("/api/v1/user")
       .set("Accept", "application/json")
-      .send(user);
-
-    done();
-  });
-
-  it("It should login successfully and receive a JWToken", done => {
-    const user = {
-      login: "test",
-      password: "testuser"
-    };
-    chai
-      .request(app)
-      .post("/api/v1/user/auth")
-      .set("Accept", "application/json")
       .send(user)
       .end((err, res) => {
-        expect(res.status).to.equal(200);
-        AUTH_TOKEN = res.body.data;
-        done();
+        expect(res.status).to.equal(201);
+        it("It should login successfully and receive a JWToken", done => {
+          const user = {
+            login: "test",
+            password: "testuser"
+          };
+          chai
+            .request(app)
+            .post("/api/v1/user/auth")
+            .set("Accept", "application/json")
+            .send(user)
+            .end((err, res) => {
+              expect(res.status).to.equal(200);
+              AUTH_TOKEN = res.body.data;
+              done();
+            });
+        });
       });
   });
 });
