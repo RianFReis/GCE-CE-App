@@ -5,6 +5,7 @@ module.exports = {
   // },
 
   development: {
+    environment: "development",
     database: "zvzunwcc",
     username: "zvzunwcc",
     password: "PIemvPGOIYwyEP1pI8liGz4p5DQ-wAhG",
@@ -13,6 +14,7 @@ module.exports = {
   },
 
   test: {
+    environment: "test",
     database: "wxighsqe",
     username: "wxighsqe",
     password: "U6bC1y5SEKKNBowArC4-XTJDgyHp1Oem",
@@ -21,6 +23,7 @@ module.exports = {
   },
 
   production: {
+    environment: "production",
     database: "jxgukpse",
     username: "jxgukpse",
     password: "vxl9faatBYRyDfp3VFo9kCBKv14LjME5",

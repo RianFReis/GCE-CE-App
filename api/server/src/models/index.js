@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import Sequelize from "sequelize";
 import configJson from "../config/config";
+require("dotenv").config();
 
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV ? process.env.NODE_ENV : "development";
@@ -14,9 +15,8 @@ const db = {};
 
 let sequelize;
 if (config.environment === "production") {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
   sequelize = new Sequelize(config.database, config.username, config.password, {
-    host: config.DB_HOST,
+    host: config.host,
     port: 5432,
     dialect: "postgres",
     dialectOption: {
