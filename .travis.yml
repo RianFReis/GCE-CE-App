@@ -9,7 +9,7 @@ jobs:
     - stage: test
       env:
         global:
-          - NODE_ENV=test
+          - NODE_ENV=production
       before_script:
         - npm install
         - npm run build
@@ -31,7 +31,7 @@ jobs:
         access_key_id: $AWS_ACCESS_KEY_ID
         secret_access_key: $AWS_SECRET_ACCESS_KEY
         region: "us-east-1"
-        app: "gce-test"
-        env: "GceTest-env"
+        app: "gce-prod"
+        env: "GceProd-env"
         bucket_name: "elasticbeanstalk-us-east-1-526564402012"
-        bucket_path: "gce-test"
+        bucket_path: "gce-prod"
