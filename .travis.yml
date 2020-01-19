@@ -7,9 +7,6 @@ services:
 jobs:
   include:
     - stage: test
-      env:
-        global:
-          - NODE_ENV=test
       before_script:
         - npm install
         - npm run build
@@ -22,19 +19,16 @@ jobs:
     - stage: docker-deploy-image # (5)
       script:
         - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-        - docker build -t rianreis/gce-app .
-        - docker push rianreis/gce-app
+        - docker build -t rianreis/$APP .
+        - docker push rianreis/$APP
     - stage: deploy
-      env:
-        global:
-          - NODE_ENV=production
       script: skip
       deploy: # (6)
         provider: elasticbeanstalk
         access_key_id: $AWS_ACCESS_KEY_ID
         secret_access_key: $AWS_SECRET_ACCESS_KEY
         region: "us-east-1"
-        app: "gce-prod"
-        env: "GceProd-env"
+        app: "$APP"
+        env: "$APP"
         bucket_name: "elasticbeanstalk-us-east-1-526564402012"
-        bucket_path: "gce-prod"
+        bucket_path: "$APP"
