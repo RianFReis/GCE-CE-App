@@ -13,8 +13,8 @@ RUN npm install
 # Copying the rest of the code to the working directory
 COPY . .
 
-RUN npm install -g sequelize
-RUN sequelize db:migrate
+RUN npm install -g sequelize sequelize-cli
+RUN npx sequelize db:migrate
 
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
