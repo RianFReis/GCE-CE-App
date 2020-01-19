@@ -8,7 +8,6 @@ WORKDIR '/app'
 COPY package.json .
 
 # Install any needed packages specified in package.json
-CMD ["npm", "install", "nodejs npm"]
 CMD ["npm", "install"]
 
 # Copying the rest of the code to the working directory
@@ -18,4 +17,4 @@ COPY . .
 EXPOSE 8000
 
 # Run index.js when the container launches
-CMD ["node", "index.js"]
+CMD ["npm", "run", "dev"]
