@@ -25,6 +25,9 @@ jobs:
         - docker build -t rianreis/gce-app .
         - docker push rianreis/gce-app
     - stage: deploy
+      env:
+        global:
+          - NODE_ENV=production
       script: skip
       deploy: # (6)
         provider: elasticbeanstalk
