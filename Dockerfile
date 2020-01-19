@@ -1,8 +1,6 @@
 # Use an official Node runtime as a parent image
 FROM node:12.7.0-alpine
 
-ENV NODE_ENV=production
-
 # Set the working directory to /app
 WORKDIR '/api'
 
