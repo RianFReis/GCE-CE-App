@@ -7,6 +7,9 @@ services:
 jobs:
   include:
     - stage: test
+      env:
+        global:
+          - NODE_ENV=test
       before_script:
         - npm install
         - npm run build
@@ -22,6 +25,9 @@ jobs:
         - docker build -t rianreis/$APP .
         - docker push rianreis/$APP
     - stage: deploy
+        env:
+          global:
+            - NODE_ENV=$NODE_ENV
       script: skip
       deploy: # (6)
         provider: elasticbeanstalk
