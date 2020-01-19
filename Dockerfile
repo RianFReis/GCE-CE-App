@@ -9,6 +9,7 @@ COPY package.json .
 
 # Install any needed packages specified in package.json
 RUN npm install
+RUN npm install -g sequelize
 RUN sequelize db:migrate
 
 # Copying the rest of the code to the working directory
