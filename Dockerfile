@@ -8,7 +8,7 @@ WORKDIR '/app'
 COPY package.json .
 
 # Install any needed packages specified in package.json
-CMD ["npm", "install"]
+RUN npm install
 
 # Copying the rest of the code to the working directory
 COPY . .
