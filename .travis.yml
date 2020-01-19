@@ -7,9 +7,6 @@ services:
 jobs:
   include:
     - stage: test
-      env:
-        global:
-          - NODE_ENV=test
       before_script:
         - npm install
         - npm run build
