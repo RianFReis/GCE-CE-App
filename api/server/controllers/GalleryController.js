@@ -21,18 +21,28 @@ class GalleryController {
   }
 
   static async addPic(req, res) {
-    if (!req.body.title || !req.body.imageUrl || !req.body.description) {
+    if (!req.body.title || !req.body.description) {
       util.setError(400, "Please provide complete details");
       return util.send(res);
     }
     const newPic = req.body;
     try {
-      const file = req.files;
-      const createdPic = await GalleryService.addGalleryPic(newPic);
+      const file = req.file;
+      const userId = req.user.id;
+      const filename = file.originalname.split(".")[0];
+      const fileExt = file.originalname.split(".")[1];
+      const finalFileName = `${userId}_${filename}_${new Date()
+        .getTime()
+        .toString()}.${fileExt}`;
 
-      file.map(item => {
-        S3Service.uploadFile(item.originalname, item.buffer);
+      newPic.imageUrl = await S3Service.uploadPicture(
+        finalFileName,
+        file.buffer
+      ).then(v => {
+        return v.Location;
       });
+
+      const createdPic = await GalleryService.addGalleryPic(newPic);
 
       util.setSuccess(201, "Pic Added!", createdPic);
       return util.send(res);
