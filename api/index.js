@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const port = process.env.PORT || 8000;
+const env = process.env.NODE_ENV;
 
 app.use("/api/v1/gallery", galleryRoutes);
 app.use("/api/v1/user", userRoutes);
@@ -19,7 +20,8 @@ app.use("/api/v1/user", userRoutes);
 // when a random route is inputed
 app.get("*", (req, res) =>
   res.status(200).send({
-    message: "Well, there is nothing here"
+    message: "Well, there is nothing here",
+    version: `I think this is the ${env} one`
   })
 );
 
