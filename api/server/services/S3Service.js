@@ -1,6 +1,3 @@
-import fs from "fs";
-import multer from "multer";
-
 class S3Service {
   constructor() {
     this.s3 = null;

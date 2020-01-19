@@ -1,6 +1,5 @@
 import GalleryService from "../services/GalleryService";
 import Util from "../utils/Utils";
-import multer from "multer";
 import S3Service from "../services/S3Service";
 
 const util = new Util();
