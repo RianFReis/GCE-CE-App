@@ -27,14 +27,14 @@ jobs:
     - stage: deploy
       env:
         global:
-          - NODE_ENV=production
+          - NODE_ENV=development
       script: skip
       deploy: # (6)
         provider: elasticbeanstalk
         access_key_id: $AWS_ACCESS_KEY_ID
         secret_access_key: $AWS_SECRET_ACCESS_KEY
         region: "us-east-1"
-        app: "gce-prod"
-        env: "GceProd-env"
+        app: "gce-test"
+        env: "GceTest-env"
         bucket_name: "elasticbeanstalk-us-east-1-526564402012"
-        bucket_path: "gce-prod"
+        bucket_path: "gce-test"
