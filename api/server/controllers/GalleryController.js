@@ -1,5 +1,7 @@
 import GalleryService from "../services/GalleryService";
 import Util from "../utils/Utils";
+import multer from "multer";
+import S3Service from "../services/S3Service";
 
 const util = new Util();
 
@@ -26,7 +28,13 @@ class GalleryController {
     }
     const newPic = req.body;
     try {
+      const file = req.files;
       const createdPic = await GalleryService.addGalleryPic(newPic);
+
+      file.map(item => {
+        S3Service.uploadFile(item.originalname, item.buffer);
+      });
+
       util.setSuccess(201, "Pic Added!", createdPic);
       return util.send(res);
     } catch (error) {

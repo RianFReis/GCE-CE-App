@@ -1,5 +1,7 @@
 import config from "dotenv";
 import express from "express";
+import aws from "aws-sdk";
+import S3Service from "./server/services/S3Service";
 import bodyParser from "body-parser";
 import galleryRoutes from "./server/routes/GalleryRoutes";
 import userRoutes from "./server/routes/UserRoutes";
@@ -13,6 +15,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const port = process.env.PORT || 8000;
 const env = process.env.NODE_ENV;
+
+const s3 = new aws.S3({
+  accessKeyId: process.env.AWS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_KEY
+});
+S3Service.initialize(s3);
 
 app.use("/api/v1/gallery", galleryRoutes);
 app.use("/api/v1/user", userRoutes);
