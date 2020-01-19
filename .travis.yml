@@ -32,3 +32,6 @@ jobs:
         env: "$APP"
         bucket_name: "elasticbeanstalk-us-east-1-526564402012"
         bucket_path: "$APP"
+      on:
+        tags: true
+        all_branches: true
