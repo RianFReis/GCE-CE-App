@@ -22,8 +22,8 @@ jobs:
     - stage: docker-deploy-image # (5)
       script:
         - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-        - docker build -t rianreis/gce-app .
-        - docker push rianreis/gce-app
+        - docker build -t rianreis/gce-dev .
+        - docker push rianreis/gce-dev
     - stage: deploy
       script: skip
       deploy: # (6)
