@@ -9,11 +9,12 @@ COPY package.json .
 
 # Install any needed packages specified in package.json
 RUN npm install
-RUN npm install -g sequelize
-RUN sequelize db:migrate
 
 # Copying the rest of the code to the working directory
 COPY . .
+
+RUN npm install -g sequelize
+RUN sequelize db:migrate
 
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
