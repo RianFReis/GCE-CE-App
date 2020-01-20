@@ -125,7 +125,8 @@ class GalleryController {
       const thePic = await GalleryService.getAPic(id);
       if (!thePic) util.setError(404, `Cannot find pic with the id ${id}`);
 
-      S3Service.deletePicture(thePic.fileName);
+      console.log(thePic.imageName);
+      await S3Service.deletePicture(thePic.imageName);
       const picToDelete = await GalleryService.deletePic(id);
 
       if (picToDelete) {

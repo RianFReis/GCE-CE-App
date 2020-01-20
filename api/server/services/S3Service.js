@@ -26,12 +26,18 @@ class S3Service {
   }
 
   static async deletePicture(filename) {
-    this.s3.deleteObject({ Key: `gallery/${filename}` });
+    this.s3.deleteObject(
+      {
+        Bucket: process.env.AWS_BUCKET_NAME + "/",
+        Key: `gallery/${filename}`
+      },
+      function(err, data) {}
+    );
   }
 
   static async uploadDoc(filename, fileContent) {
     var params = {
-      Bucket: process.env.AWS_BUCKET_NAME,
+      Bucket: process.env.AWS_BUCKET_NAME + "/",
       Key: `docs/${filename}`,
       Body: fileContent,
       ACL: "public-read"
@@ -48,7 +54,13 @@ class S3Service {
   }
 
   static async deleteDoc(filename) {
-    this.s3.deleteObject({ Key: `docs/${filename}` });
+    this.s3.deleteObject(
+      {
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: `docs/${filename}`
+      },
+      function(err, data) {}
+    );
   }
 }
 
