@@ -1,17 +1,17 @@
-import GalleryService from "../services/GalleryService";
+import DocumentService from "../services/DocumentService";
 import Util from "../utils/Utils";
 import S3Service from "../services/S3Service";
 
 const util = new Util();
 
-class GalleryController {
-  static async getAllPics(req, res) {
+class DocumentController {
+  static async getAllDocs(req, res) {
     try {
-      const allPics = await GalleryService.getAllGalleryPics();
-      if (allPics.length > 0) {
-        util.setSuccess(200, "Books retrieved", allPics);
+      const allDocs = await DocumentService.getAllDocuments();
+      if (allDocs.length > 0) {
+        util.setSuccess(200, "Docs retrieved", allDocs);
       } else {
-        util.setSuccess(200, "No book found");
+        util.setSuccess(200, "No document found");
       }
       return util.send(res);
     } catch (error) {
@@ -20,12 +20,12 @@ class GalleryController {
     }
   }
 
-  static async addPic(req, res) {
-    if (!req.body.title || !req.body.description) {
+  static async addDoc(req, res) {
+    if (!req.body.title || !req.body.description || !req.body.type) {
       util.setError(400, "Please provide complete details");
       return util.send(res);
     }
-    const newPic = req.body;
+    const newDoc = req.body;
     try {
       const file = req.file;
       const userId = req.user.id;
@@ -35,16 +35,16 @@ class GalleryController {
         .getTime()
         .toString()}.${fileExt}`;
 
-      newPic.imageUrl = await S3Service.uploadPicture(
+      newDoc.fileUrl = await S3Service.uploadDoc(
         finalFileName,
         file.buffer
       ).then(v => {
         return v.Location;
       });
 
-      const createdPic = await GalleryService.addGalleryPic(newPic);
+      const createdDoc = await DocumentService.addDocument(newDoc);
 
-      util.setSuccess(201, "Pic Added!", createdPic);
+      util.setSuccess(201, "Doc Added!", createdDoc);
       return util.send(res);
     } catch (error) {
       util.setError(400, error.message);
@@ -52,8 +52,8 @@ class GalleryController {
     }
   }
 
-  static async updatePic(req, res) {
-    const alteredPic = req.body;
+  static async updateDoc(req, res) {
+    const alteredDoc = req.body;
     const { id } = req.params;
     if (!id) {
       util.setError(400, "Please input a valid id");
@@ -68,18 +68,18 @@ class GalleryController {
         .getTime()
         .toString()}.${fileExt}`;
 
-      alteredPic.imageUrl = await S3Service.uploadPicture(
+      alteredDoc.fileUrl = await S3Service.uploadDoc(
         finalFileName,
         file.buffer
       ).then(v => {
         return v.Location;
       });
 
-      const updatePic = await GalleryService.updateGalleryPic(id, alteredPic);
-      if (!updatePic) {
-        util.setError(404, `Cannot find book with the id: ${id}`);
+      const updateDoc = await DocumentService.updateDocument(id, alteredDoc);
+      if (!updateDoc) {
+        util.setError(404, `Cannot find document with the id: ${id}`);
       } else {
-        util.setSuccess(200, "Book updated", updatePic);
+        util.setSuccess(200, "Doc updated", updateDoc);
       }
       return util.send(res);
     } catch (error) {
@@ -88,7 +88,7 @@ class GalleryController {
     }
   }
 
-  static async getAPic(req, res) {
+  static async getADoc(req, res) {
     const { id } = req.params;
 
     if (!id) {
@@ -97,12 +97,12 @@ class GalleryController {
     }
 
     try {
-      const thePic = await GalleryService.getAPic(id);
+      const theDoc = await DocumentService.getADoc(id);
 
-      if (!thePic) {
+      if (!theDoc) {
         util.setError(404, `Cannot find book with the id ${id}`);
       } else {
-        util.setSuccess(200, "Found Book", thePic);
+        util.setSuccess(200, "Found Book", theDoc);
       }
       return util.send(res);
     } catch (error) {
@@ -111,7 +111,7 @@ class GalleryController {
     }
   }
 
-  static async deletePic(req, res) {
+  static async deleteDoc(req, res) {
     const { id } = req.params;
 
     if (!id) {
@@ -120,16 +120,16 @@ class GalleryController {
     }
 
     try {
-      const thePic = await GalleryService.getAPic(id);
-      if (!thePic) util.setError(404, `Cannot find pic with the id ${id}`);
+      const theDoc = await DocumentService.getADoc(id);
+      if (!theDoc) util.setError(404, `Cannot find book with the id ${id}`);
 
-      S3Service.deletePicture(thePic.fileName);
-      const picToDelete = await GalleryService.deletePic(id);
+      S3Service.deleteDoc(theDoc.fileName);
+      const DocToDelete = await DocumentService.deleteDoc(id);
 
-      if (picToDelete) {
-        util.setSuccess(200, "Pic deleted");
+      if (DocToDelete) {
+        util.setSuccess(200, "Doc deleted");
       } else {
-        util.setError(404, `Pic with the id ${id} cannot be found`);
+        util.setError(404, `Doc with the id ${id} cannot be found`);
       }
       return util.send(res);
     } catch (error) {
@@ -139,4 +139,4 @@ class GalleryController {
   }
 }
 
-export default GalleryController;
+export default DocumentController;

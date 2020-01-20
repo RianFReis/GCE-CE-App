@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("gallery_pics", {
+    return queryInterface.createTable("documents", {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -10,15 +10,19 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      image_url: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      image_name: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
       description: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      type: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      file_url: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      file_name: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -33,6 +37,6 @@ module.exports = {
     });
   },
   down: queryInterface => {
-    return queryInterface.dropTable("gallery_pics");
+    return queryInterface.dropTable("documents");
   }
 };

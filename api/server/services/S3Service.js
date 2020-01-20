@@ -25,6 +25,10 @@ class S3Service {
     return link;
   }
 
+  static async deletePicture(filename) {
+    this.s3.deleteObject({ Key: `gallery/${filename}` });
+  }
+
   static async uploadDoc(filename, fileContent) {
     var params = {
       Bucket: process.env.AWS_BUCKET_NAME,
@@ -41,6 +45,10 @@ class S3Service {
       });
 
     return link;
+  }
+
+  static async deleteDoc(filename) {
+    this.s3.deleteObject({ Key: `docs/${filename}` });
   }
 }
 

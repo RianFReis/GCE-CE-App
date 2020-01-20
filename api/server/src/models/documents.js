@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const GalleryPics = sequelize.define(
-    "GalleryPics",
+  const Documents = sequelize.define(
+    "Documents",
     {
       id: {
         type: DataTypes.UUID,
@@ -15,11 +15,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      imageName: {
+      fileUrl: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      imageUrl: {
+      fileName: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      type: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -35,8 +39,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       underscored: true,
       freezeTableName: true,
-      tableName: "gallery_pics"
+      tableName: "documents"
     }
   );
-  return GalleryPics;
+  return Documents;
 };
