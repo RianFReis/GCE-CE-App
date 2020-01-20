@@ -5,6 +5,7 @@ import S3Service from "./server/services/S3Service";
 import bodyParser from "body-parser";
 import galleryRoutes from "./server/routes/GalleryRoutes";
 import userRoutes from "./server/routes/UserRoutes";
+import docRoutes from "./server/routes/DocumentRoutes";
 
 config.config();
 
@@ -24,6 +25,7 @@ S3Service.initialize(s3);
 
 app.use("/api/v1/gallery", galleryRoutes);
 app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/document", docRoutes);
 
 // when a random route is inputed
 app.get("*", (req, res) =>

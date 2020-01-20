@@ -28,16 +28,18 @@ class S3Service {
   static async deletePicture(filename) {
     this.s3.deleteObject(
       {
-        Bucket: process.env.AWS_BUCKET_NAME + "/",
+        Bucket: process.env.AWS_BUCKET_NAME,
         Key: `gallery/${filename}`
       },
-      function(err, data) {}
+      function(err, data) {
+        console.log(err);
+      }
     );
   }
 
   static async uploadDoc(filename, fileContent) {
     var params = {
-      Bucket: process.env.AWS_BUCKET_NAME + "/",
+      Bucket: process.env.AWS_BUCKET_NAME,
       Key: `docs/${filename}`,
       Body: fileContent,
       ACL: "public-read"
