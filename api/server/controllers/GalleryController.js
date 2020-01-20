@@ -33,10 +33,11 @@ class GalleryController {
       const fileExt = file.originalname.split(".")[1];
       const finalFileName = `${userId}_${filename}_${new Date()
         .getTime()
-        .toString()}.${fileExt}`;
+        .toString()}`;
 
+      newPic.imageName = finalFileName;
       newPic.imageUrl = await S3Service.uploadPicture(
-        finalFileName,
+        `${finalFileName}.${fileExt}`,
         file.buffer
       ).then(v => {
         return v.Location;
@@ -66,10 +67,11 @@ class GalleryController {
       const fileExt = file.originalname.split(".")[1];
       const finalFileName = `${userId}_${filename}_${new Date()
         .getTime()
-        .toString()}.${fileExt}`;
+        .toString()}`;
 
+      alteredPic.imageName = finalFileName;
       alteredPic.imageUrl = await S3Service.uploadPicture(
-        finalFileName,
+        `${finalFileName}.${fileExt}`,
         file.buffer
       ).then(v => {
         return v.Location;
