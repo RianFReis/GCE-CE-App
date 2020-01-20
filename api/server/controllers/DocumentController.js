@@ -33,11 +33,11 @@ class DocumentController {
       const fileExt = file.originalname.split(".")[1];
       const finalFileName = `${userId}_${filename}_${new Date()
         .getTime()
-        .toString()}`;
+        .toString()}.${fileExt}`;
 
       newDoc.fileName = finalFileName;
       newDoc.fileUrl = await S3Service.uploadDoc(
-        `${finalFileName}.${fileExt}`,
+        finalFileName,
         file.buffer
       ).then(v => {
         return v.Location;
@@ -67,11 +67,11 @@ class DocumentController {
       const fileExt = file.originalname.split(".")[1];
       const finalFileName = `${userId}_${filename}_${new Date()
         .getTime()
-        .toString()}`;
+        .toString()}.${fileExt}`;
 
       alteredDoc.fileName = finalFileName;
       alteredDoc.fileUrl = await S3Service.uploadDoc(
-        `${finalFileName}.${fileExt}`,
+        finalFileName,
         file.buffer
       ).then(v => {
         return v.Location;
